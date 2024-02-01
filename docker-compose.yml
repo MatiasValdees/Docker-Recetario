@@ -3,7 +3,7 @@ services:
   sql-db:
     env_file:
       - .env
-    image: postgres:latest
+    image: postgres:16.1
     container_name: RecetasDB
     restart: always
     volumes:
@@ -18,19 +18,35 @@ services:
       - "${PORT_POSTGRES_HOST}:${PORT_POSTGRES_DOCKER}"
     networks:
       - net-recetas
-#  java-app:
-#    container_name: RecetasBackend
-#    image: java-app:0.0.1
-#    build:
-#      context: ./RecetasApp
-#      dockerfile: java.Dockerfile
-#    restart: always
-#    ports:
-#      - "${PORT_BACKEND_HOST}:${PORT_BACKEND_DOCKER}"
-#    networks:
-#      - net-recetas
-#    depends_on:
-#      - sql-db
+
+  # backend-recetario:
+  #   container_name: RecetasBackend
+  #   image: BackendRecetario:0.0.1
+  #   build:
+  #     context: .
+  #     dockerfile: back.Dockerfile
+  #   ports:
+  #     - "${PORT_BACKEND_HOST}:${PORT_BACKEND_DOCKER}"
+  #   networks:
+  #     - net-recetas
+  #   depends_on:
+  #     - sql-db
+  #   restart: always
+
+  frontend-rectario:
+    container_name: RectasFrontend
+    image: frontend-recetario:0.0.1
+    build:
+      context: .
+      dockerfile: front.dockerfile
+    ports:
+      - "${PORT_FRONT_HOST}:${PORT_FRONT_DOCKER}"
+    networks:
+      - net-recetas
+    # depends_on:
+    #   - backEnd-Recetario
+    restart: always
+
 networks:
   net-recetas:
     driver: bridge
