@@ -33,22 +33,23 @@ services:
   #     - sql-db
   #   restart: always
 
-  frontend-rectario:
-    container_name: RectasFrontend
-    image: frontend-recetario:0.0.1
-    build:
-      context: .
-      dockerfile: front.dockerfile
-    ports:
-      - "${PORT_FRONT_HOST}:${PORT_FRONT_DOCKER}"
-    networks:
-      - net-recetas
+  # frontend-rectario:
+  #   container_name: RectasFrontend
+  #   image: frontend-recetario:0.0.1
+  #   build:
+  #     context: .
+  #     dockerfile: front.dockerfile
+  #   ports:
+  #     - "${PORT_FRONT_HOST}:${PORT_FRONT_DOCKER}"
+  #   networks:
+  #     - net-recetas
     # depends_on:
     #   - backEnd-Recetario
-    restart: always
+    # restart: always
 
 networks:
   net-recetas:
     driver: bridge
+    enable_ipv6: false    
 volumes:
   data-recetas:
